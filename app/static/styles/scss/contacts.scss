@@ -1,0 +1,26 @@
+
+
+#contacts {
+
+    position: fixed;
+    z-index: 89;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background: linear-gradient(to right, rgb(233, 233, 230), rgb(248, 248, 216));
+    transition:cubic-bezier(0.075, 0.82, 0.165, 1); 
+    transition-duration: 1000ms;
+}
+
+
+.contacts-show {
+    
+    top: 0%;
+
+}
+
+.contacts-hide {
+    top: 100%;
+
+}

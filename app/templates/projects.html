@@ -1,0 +1,22 @@
+{% extends 'master.html' %}
+
+{% block title %}
+My First Site
+ {% endblock %}
+
+ {% block header%}
+
+ {% endblock%}
+
+
+ {% block main %}
+ <h1>main content<h1>
+   <ul>
+      {% for x in contacts %}
+        <li>{{ x.name }} {{ x.address }}</li>
+        <li>{{ x.logo}}</li>
+        <img src="data:image/jpg;base64,{{x.logo}}" alt="photo">
+      {% endfor %}
+    </ul>
+
+    {% endblock %}

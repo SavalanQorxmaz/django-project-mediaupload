@@ -1,0 +1,76 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    
+ <link rel="stylesheet" href="{% static 'index.css' %}">
+ <link rel="stylesheet" href="{% static 'styles/css/app.css' %}">
+    {% block link %}
+     {% endblock%}
+</head>
+<body>
+ 
+    {% block header%}
+
+   
+
+    <header>
+
+        <div id="contacts-icon" class="contacts-icon-open">
+      &#9742;
+        </div>
+
+
+        <div id="analog">
+            <div id="center"></div>
+            <div id="hour">
+                <div></div>
+                <div></div>
+            </div>
+            <div id="minute">
+                <div></div>
+                <div></div>
+            </div>
+            <div id="second">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </header>
+
+
+    {% endblock%}
+
+ 
+
+    <div id="contacts" class="contacts-hide">
+
+
+    </div>
+
+    {% block main %}
+    {% endblock %}
+    <p>I will display &#129032;</p>
+    <p>I will display &#x1F808;</p>
+    <p>I will display &#129092;</p>
+<p>I will display &#x1F844;</p>
+<p>I will display &#8801;</p>
+<p>I will display &#x2261;</p>
+<p>I will display &equiv;</p>
+<p>I will display &#10008;</p>
+<p>I will display &#x2718;</p>
+    {% block footer %}
+    &copy;
+    {% endblock %}
+    
+
+    
+ 
+ <script type="module" src="{% static 'scripts/main.js' %}"></script>
+</body>
+</html>

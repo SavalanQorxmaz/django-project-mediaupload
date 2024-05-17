@@ -1,0 +1,8 @@
+/* @import '../app/static/styles/app.css'; */
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    list-style-type: none;
+}

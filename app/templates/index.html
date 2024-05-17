@@ -1,0 +1,62 @@
+{% extends 'master.html' %}
+
+{% block title %}
+My First Site
+ {% endblock %}
+
+
+
+
+ {% block main %}
+ <div class ="home">
+  <div class="load-cover">
+   
+  </div>
+
+
+
+  <div id="carousel" class="carousel" oncontextmenu="return false">
+    <div class="carousel-items">
+      {% for i in projects %}
+      {% for j in pictures %}
+      <div class="carousel-item">
+        <div class="carousel-item-content">
+          <img src="data:;base64,{{j.image|safe }}"  alt="">
+        </div>
+      </div>
+      {% endfor %}
+      {% endfor %}
+  
+    </div>
+    <div class="cover"></div>
+  </div>
+ <section id="projects-section">
+  <div class ="container">
+    <h1>main content</h1>
+      <ul class="projects">
+         {% for x in projects %}
+           <li class="project">
+            <ul class="project-images">
+             <p> {{ x.title }} {{ x.description }}</p>
+           {% for y in pictures %}
+           <li class="image">
+            <span>{{y.id}}</span>
+            <img src="data:;base64,{{y.image|safe }}" width=200 height=200 alt="">
+          </li>
+           {% endfor %}
+            </ul>
+            
+          </li>
+         {% endfor %}
+       </ul>
+       
+       <button  id ='clickme'>click me</button>
+   </div>
+ </section>
+ </div>
+
+
+ 
+    {% endblock %}
+
+   

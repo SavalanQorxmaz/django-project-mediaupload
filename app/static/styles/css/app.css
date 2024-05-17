@@ -1,0 +1,222 @@
+header {
+  position: relative;
+  z-index: 99;
+  height: 80px;
+  width: 100%;
+  background: linear-gradient(to right, rgb(248, 248, 245), rgb(248, 248, 216));
+  box-shadow: 0px 5px 8px 0px rgba(34, 34, 34, 0.651);
+}
+header #contacts-icon {
+  position: fixed;
+  z-index: 99;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition-duration: 800ms;
+}
+header .contacts-icon-open {
+  top: 20px;
+  right: 100px;
+}
+header .contacts-icon-close {
+  top: 100px;
+  right: 20px;
+}
+header #analog {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  z-index: 99;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+header #analog #center {
+  position: absolute;
+  z-index: 9;
+  width: 4px;
+  height: 4px;
+  background-color: rgb(59, 6, 6);
+  border-radius: 50%;
+  translate: 33px 33px;
+}
+header #analog #hour {
+  top: 0;
+  width: 4px;
+  height: 100%;
+  position: absolute;
+  translate: 33px;
+}
+header #analog #hour :first-child {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  border-radius: 50% 50% 1px 1px;
+  top: 5px;
+  background-color: rgb(6, 70, 31);
+}
+header #analog #minute {
+  top: 0;
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  translate: 34px;
+}
+header #analog #minute :first-child {
+  position: absolute;
+  width: 100%;
+  height: 55%;
+  top: 5px;
+  /* border: 1px solid black; */
+  border-radius: 50% 50% 1px 1px;
+  background-color: rgb(5, 56, 122);
+}
+header #analog #second {
+  top: 0;
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  translate: 34px;
+}
+header #analog #second :first-child {
+  position: relative;
+  width: 100%;
+  height: 60%;
+  top: 5px;
+  /* border: 1px solid rgb(117, 13, 13); */
+  background-color: rgb(240, 236, 6);
+}
+header #analog .line {
+  top: 0;
+  width: 4px;
+  height: 100%;
+  position: absolute;
+  translate: 33px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+header #analog .long-line {
+  top: 0;
+  width: 3px;
+  height: 5%;
+  background-color: rgb(47, 143, 84);
+}
+header #analog .short-line {
+  top: 0;
+  width: 2px;
+  height: 3%;
+  background-color: rgb(106, 147, 201);
+}
+
+.home {
+  overflow: auto;
+  background: linear-gradient(to right, rgb(230, 211, 211), rgb(106, 106, 233));
+}
+.home .container {
+  padding: 0;
+  margin: auto;
+}
+
+.home {
+  box-sizing: border-box;
+}
+.home .carousel {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  background: linear-gradient(to right, rgb(248, 248, 245), rgb(248, 248, 216));
+  user-select: none;
+}
+.home .carousel .carousel-items {
+  text-wrap: nowrap;
+  height: 100%;
+  overflow: hidden;
+}
+.home .carousel .carousel-items .carousel-item {
+  display: inline-block;
+  height: 100%;
+  overflow: hidden;
+  padding: 10px;
+}
+.home .carousel .carousel-items .carousel-item .carousel-item-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.home .carousel .carousel-items .carousel-item .carousel-item-content img {
+  height: 90%;
+}
+
+#contacts {
+  position: fixed;
+  z-index: 89;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: linear-gradient(to right, rgb(233, 233, 230), rgb(248, 248, 216));
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition-duration: 1000ms;
+}
+
+.contacts-show {
+  top: 0%;
+}
+
+.contacts-hide {
+  top: 100%;
+}
+
+@media screen and (min-width: 0px) {
+  .container {
+    width: 100%;
+    margin: auto;
+  }
+}
+@media screen and (min-width: 772px) {
+  .container {
+    width: 80%;
+    margin: auto;
+  }
+}
+.hidden {
+  display: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.block {
+  display: block;
+}
+
+.cover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.load-cover {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to right, rgb(99, 3, 3), rgb(156, 12, 12));
+}
+
+/*# sourceMappingURL=app.css.map */
