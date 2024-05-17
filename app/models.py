@@ -34,3 +34,13 @@ class Logo(models.Model):
     logo = models.ImageField(upload_to=get_img_upload_path, null=True)
     def __str__(self):
         return self.name
+    
+
+
+class Celebrity(models.Model):
+    name = models.CharField(max_length=100)
+
+class Image(models.Model):
+    celebrity = models.ForeignKey(Celebrity, on_delete=models.CASCADE)
+    image = models.ImageField()
+

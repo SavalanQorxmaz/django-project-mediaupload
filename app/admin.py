@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Logo
+from .models import Logo,Image,Celebrity
 from .forms import LogoForm
 from django import forms
 
@@ -17,3 +17,12 @@ class LogoAdmin(admin.ModelAdmin):
     list_display =['title', 'link','logoF']
  
 admin.site.register(Logo, LogoAdmin)
+
+
+
+class InlineImage(admin.TabularInline):
+    model = Image
+
+@admin.register(Celebrity)
+class CelebrityAdmin(admin.ModelAdmin):
+    inlines = [InlineImage]
