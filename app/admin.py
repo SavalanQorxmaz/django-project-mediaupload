@@ -2,7 +2,9 @@ from django.contrib import admin
 from .models import Image,Celebrity,Photos,Project
 # from .forms import LogoForm
 from django import forms
+from django.conf import settings
 import os
+import shutil
 import base64
 
 from django.utils.html import format_html
@@ -39,14 +41,23 @@ class PhotoAdmin(admin.ModelAdmin):
 
     def delete_queryset(self, request, queryset):
         print('========================delete_queryset========================')
-        print(queryset)
+        # print(queryset)
 
         """
         you can do anything here BEFORE deleting the object(s)
         """
-
+        paths =[]
+        for value in queryset.values_list('photo'):
+            paths.append(value[0])
+            print(paths)
+        # deletedPath = Photos.objects.values_list('photo')[0][0]
+        # print(deletedPath)
         queryset.delete()
 
+        for image in paths:
+            imagePath = settings.MEDIA_ROOT + image
+            if os.path.exists(imagePath):
+                os.remove(imagePath)
         """
         you can do anything here AFTER deleting the object(s)
         """
@@ -60,6 +71,7 @@ class PhotoAdmin(admin.ModelAdmin):
         """
         you can do anything here BEFORE deleting the object
         """
+        print(obj)
 
         obj.delete()
 
@@ -90,3 +102,28 @@ class ProjectAdmin(admin.ModelAdmin):
     def get_inline_instances(self, request, obj=None):
         return [inline(self.model, self.admin_site) for inline in self.inlines]
     list_display = ['name','Description']
+
+    def delete_queryset(self, request, queryset):
+
+        paths =[]
+        for value in queryset.values_list('name'):
+            paths.append(value[0])
+            print(paths)
+
+        queryset.delete()
+
+        for projectFolder in paths:
+            folderPath = settings.MEDIA_ROOT + os.path.join('Projects/', projectFolder)
+            # print(folderPath)
+            if os.path.exists(folderPath):
+                shutil.rmtree(folderPath)
+    # readonly_fields = ['name']
+
+    def get_readonly_fields(self, request, obj=None):
+       if obj:
+           return ['name']
+       return self.readonly_fields
+
+
+
+  

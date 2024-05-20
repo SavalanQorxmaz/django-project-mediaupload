@@ -1,5 +1,9 @@
 from django.db import models
 import os
+import shutil
+from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 
 # Create your models here.
 
@@ -8,22 +12,10 @@ def get_img_upload_path(instance, filename):
 
 def path_generator(instance, filename):
     base, extension = os.path.splitext(os.path.basename(filename))
-    file_dir = f"Photos/{instance.project.name}/{instance.photo_name}{extension}"
+    file_dir = f"Projects/{instance.project.name}/{instance.photo_name}{extension}"
     return file_dir
 
-# class Project(models.Model):
-#     title =models.CharField(max_length=255)
-#     description = models.TextField()
-#     link = models.TextField(null=True, blank=True)
-#     class Meta:
-#        ordering = ('title',)
-#     def __str__(self):
-#         return self.title
 
-# class Picture(models.Model):
-#     content_type = models.ForeignKey(Project, on_delete=models.CASCADE)
-#     imgtitle =models.CharField(max_length=20)
-#     image = models.ImageField()
 
 
 # class Contacts(models.Model):
@@ -42,8 +34,27 @@ def path_generator(instance, filename):
 #         return self.name
     
 class Project(models.Model):
-    name = models.CharField('Project Name', max_length=100, unique=True)
+    name = models.CharField('Project Name', max_length=100, unique=True, blank=False, 
+        #                     validators=[
+        # RegexValidator(
+        #     regex = r'[A-Z,a-z,0-9,-,_,]{50}',
+        #     message="Only a-z,A-Z,0-9"),
+        # ]
+        )
+    
     Description = models.TextField('Tag Description', max_length=1000, blank=True)
+   
+    def delete(self, *args, **kwargs):
+            path = settings.MEDIA_ROOT + os.path.join('Projects/', self.name)
+            super(Project, self).delete(*args, **kwargs)
+            if os.path.exists(path):
+                shutil.rmtree(path)
+    def clean(self):
+        regex = r
+        if not len(self.name) <50:
+            raise ValidationError(
+                {'name': ">0"})
+
 
 class Celebrity(models.Model):
     name = models.CharField(max_length=100)
@@ -85,8 +96,6 @@ class Image(models.Model):
     celebrity = models.ForeignKey(Celebrity, on_delete=models.CASCADE)
     image = models.ImageField()
 
-# class Meta:
-#     verbose_name = 'Photos'
-#     verbose_name_plural = verbose_name
-#     ordering = ['Date_uploaded']
+# class Slider(models.model):
+#     image = models.ImageField()
 
