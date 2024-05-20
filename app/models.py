@@ -1,6 +1,7 @@
 from django.db import models
 import os
 import shutil
+import re
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
@@ -50,10 +51,10 @@ class Project(models.Model):
             if os.path.exists(path):
                 shutil.rmtree(path)
     def clean(self):
-        regex = r
-        if not len(self.name) <50:
+        regex = re.findall("[\,/,!,#,@,$,%,^,&,*,(,),]", self.name)
+        if not len(regex) <1:
             raise ValidationError(
-                {'name': ">0"})
+                {'name': "Not !@#$%^&*()"})
 
 
 class Celebrity(models.Model):
