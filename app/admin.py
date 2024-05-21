@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Image,Celebrity,Photos,Project
+from .models import Image,Celebrity,Photos,Project,Slider
 # from .forms import LogoForm
 from django import forms
 from django.conf import settings
@@ -37,7 +37,7 @@ class CelebrityAdmin(admin.ModelAdmin):
 
 class PhotoAdmin(admin.ModelAdmin):
     model = Photos
-    actions = ['delete_model']
+    # actions = ['delete_model']
 
     def delete_queryset(self, request, queryset):
         print('========================delete_queryset========================')
@@ -50,8 +50,6 @@ class PhotoAdmin(admin.ModelAdmin):
         for value in queryset.values_list('photo'):
             paths.append(value[0])
             print(paths)
-        # deletedPath = Photos.objects.values_list('photo')[0][0]
-        # print(deletedPath)
         queryset.delete()
 
         for image in paths:
@@ -64,24 +62,6 @@ class PhotoAdmin(admin.ModelAdmin):
 
         print('========================delete_queryset========================')
 
-    def delete_model(self, request, obj):
-        print('==========================delete_model==========================')
-        print(obj)
-
-        """
-        you can do anything here BEFORE deleting the object
-        """
-        print(obj)
-
-        obj.delete()
-
-        """
-        you can do anything here AFTER deleting the object
-        """
-
-        print('==========================delete_model==========================')
-
-    
   
     def imageField(self, obj):
         return  format_html('<img src="{}"    height="200" width = "200" alt="">'.format(obj.photo))
@@ -125,5 +105,25 @@ class ProjectAdmin(admin.ModelAdmin):
        return self.readonly_fields
 
 
+class SliderAdmin(admin.ModelAdmin):
+    model = Slider
+
+    def delete_queryset(self, request, queryset):
+        paths =[]
+        for value in queryset.values_list('slide'):
+            paths.append(value[0])
+            print(paths)
+        queryset.delete()
+
+        for image in paths:
+            imagePath = settings.MEDIA_ROOT + image
+            if os.path.exists(imagePath):
+                os.remove(imagePath)
+
+    def imageField(self, obj):
+        return  format_html('<img src="{}"    height="200" width = "200  alt="">'.format(settings.MEDIA_URL + str(obj.slide)))
+    list_display = ['imageField']
+
+admin.site.register(Slider,SliderAdmin)
 
   

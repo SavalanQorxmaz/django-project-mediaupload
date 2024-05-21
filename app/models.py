@@ -16,6 +16,12 @@ def path_generator(instance, filename):
     file_dir = f"Projects/{instance.project.name}/{instance.photo_name}{extension}"
     return file_dir
 
+def path_slider(instance,filename):
+    base,extension = os.path.splitext(os.path.basename(filename))
+
+    
+    return 'Slider/slide{extension}'.format( extension = extension )
+
 
 
 
@@ -97,6 +103,29 @@ class Image(models.Model):
     celebrity = models.ForeignKey(Celebrity, on_delete=models.CASCADE)
     image = models.ImageField()
 
-# class Slider(models.model):
-#     image = models.ImageField()
+class Slider(models.Model):
+    slide = models.ImageField(upload_to=path_slider, blank=False)
+    # def __str__(self):
+    #     return self.id
+
+  
+    
+    def remove_on_image_update(self):
+        try:
+            obj = Slider.objects.get(id=self.id)
+        except Slider.DoesNotExist:
+            return
+        if obj.slide and self.slide and obj.slide != self.slide:
+            obj.slide.delete()
+    
+    def delete(self, *args, **kwargs):
+        storage, path = self.slide.storage, self.slide.path
+        self.slide.delete()
+        super(Slider, self).delete(*args, **kwargs)
+        storage.delete(path)
+
+    def save(self, *args, **kwargs):
+        
+        self.remove_on_image_update()
+        return super(Slider, self).save(*args, **kwargs)
 

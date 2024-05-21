@@ -1,4 +1,7 @@
+@use 'sass:math';
 
+$contact_top: calc(100% - 50px);
+$contact_right: calc(100% - 50px);
 header {
     position: relative;
     z-index: 99;
@@ -17,14 +20,14 @@ header {
         font-size: 40px;
        border-radius: 50%;
         cursor: pointer;
-        transition: cubic-bezier(0.075, 0.82, 0.165, 1); 
+        transition: cubic-bezier(0.175, 0.885, 0.32, 1);
         
-    transition-duration: 800ms;
+    transition-duration: 500ms;
     }
 
     .contacts-icon-open {
-        top: 20px;
-        right: 100px;
+        top: $contact_top;
+        right: $contact_right;
     }
 
     .contacts-icon-close {
