@@ -24,21 +24,6 @@ def path_slider(instance,filename):
 
 
 
-
-# class Contacts(models.Model):
-#   name = models.CharField(max_length=32)
-#   logo = models.ImageField(upload_to=get_img_upload_path)
-#   address = models.CharField(max_length=255)
-#   def __str__(self):
-#         return self.name
-  
-
-# class Logo(models.Model):
-#     title =models.CharField(max_length=20)
-#     link = models.TextField(null=True, blank=True)
-#     logo = models.ImageField(upload_to=get_img_upload_path, null=True)
-#     def __str__(self):
-#         return self.name
     
 class Project(models.Model):
     name = models.CharField('Project Name', max_length=100, unique=True, blank=False, 
@@ -105,11 +90,6 @@ class Image(models.Model):
 
 class Slider(models.Model):
     slide = models.ImageField(upload_to=path_slider, blank=False)
-    # def __str__(self):
-    #     return self.id
-
-  
-    
     def remove_on_image_update(self):
         try:
             obj = Slider.objects.get(id=self.id)
@@ -128,4 +108,81 @@ class Slider(models.Model):
         
         self.remove_on_image_update()
         return super(Slider, self).save(*args, **kwargs)
+    
+
+class Logo(models.Model):
+    def path_Logo(instance, filename):
+        base, extension = os.path.splitext(os.path.basename(filename))
+        return 'Logo/logo{extension}'.format( extension = extension )
+
+    # logo_name = models.CharField('Logo Name', max_length=200, unique=True)
+    logo_title = models.CharField('Logo Title', max_length=500, unique=True)
+    logo = models.ImageField(upload_to=path_Logo, blank=False)
+    def __str__(self):
+        return self.logo_title
+    
+    def remove_on_image_update(self):
+        try:
+            # is the object in the database yet?
+            obj = Logo.objects.get(id=self.id)
+        except Logo.DoesNotExist:
+            # object is not in db, nothing to worry about
+            return
+        # is the save due to an update of the actual image file?
+        if obj.logo and self.logo and obj.logo != self.logo:
+            # delete the old image file from the storage in favor of the new file
+            obj.logo.delete()
+    
+    def delete(self, *args, **kwargs):
+        storage, path = self.logo.storage, self.logo.path
+        self.logo.delete()
+        super(Logo, self).delete(*args, **kwargs)
+        storage.delete(path)
+
+    # def has_delete_permission(self, request, obj=None):
+    #     return False
+
+    def save(self, *args, **kwargs):
+        # object is possibly being updated, if so, clean up.
+        self.remove_on_image_update()
+        return super(Logo, self).save(*args, **kwargs)
+    
+
+class Contact(models.Model):
+    def path_Contact(instance, filename):
+        base, extension = os.path.splitext(os.path.basename(filename))
+        return 'Contacts/contact{extension}'.format( extension = extension )
+
+    # logo_name = models.CharField('Logo Name', max_length=200, unique=True)
+    contact_title = models.CharField('Contact Title', max_length=100, unique=True)
+    contact_link = models.CharField('Contact Link', max_length=500, unique=True)
+    contact_logo = models.ImageField(upload_to=path_Contact, blank=False)
+    def __str__(self):
+        return self.contact_title
+    
+    def remove_on_image_update(self):
+        try:
+            # is the object in the database yet?
+            obj = Contact.objects.get(id=self.id)
+        except Contact.DoesNotExist:
+            # object is not in db, nothing to worry about
+            return
+        # is the save due to an update of the actual image file?
+        if obj.contact_logo and self.contact_logo and obj.contact_logo != self.contact_logo:
+            # delete the old image file from the storage in favor of the new file
+            obj.contact_logo.delete()
+    
+    def delete(self, *args, **kwargs):
+        storage, path = self.contact_logo.storage, self.contact_logo.path
+        self.contact_logo.delete()
+        super(Contact, self).delete(*args, **kwargs)
+        storage.delete(path)
+
+    # def has_delete_permission(self, request, obj=None):
+    #     return False
+
+    def save(self, *args, **kwargs):
+        # object is possibly being updated, if so, clean up.
+        self.remove_on_image_update()
+        return super(Contact, self).save(*args, **kwargs)
 

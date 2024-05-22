@@ -1,58 +1,59 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .models import Slider, Project, Photos
+from .models import Slider, Project, Photos,Contact,Logo
 
 # Create your views here.
 
 
+# def contacts(request):
+
+#   contacts = Contact.objects.all().values()
+#   template = loader.get_template('*.html')
+#   context = {
+#     'contacts':contacts
+#   }
+#   return HttpResponse(template.render(context,request))
+
+
+# __________________________index page_________________
 
 def main(request):
 
   slider = Slider.objects.all().values()
   projects = Project.objects.all().values()
   projectPhotos = Photos.objects.all().values()
+  contacts = Contact.objects.all().values()
 
-  selectedPictures = []
   projectMinObject = []
   
   projecIdSet = set()
   for project in projects:
     projecIdSet.add(project['id'])
-  mainPhotos = []
+  print(projecIdSet)
+  mainPhotos = {}
   for photo in projectPhotos:
-    # print(projecIdSet)
-    # print(projectPhotos)
     if ('main' in photo['photo_name'] and photo['project_id']  in projecIdSet):
 
       projecIdSet.remove(photo['project_id'])
-      mainPhotos.append(photo)
-  #     mainPhotos.add(photo) 
-  def check_if_photo_in_project(id):
-    returnedPhoto =''
-    for photo in mainPhotos:
-      # print(photo.filter(id = project['project_id']).values()[0])
-      if photo['project_id'] == id:
-        returnedPhoto = photo['photo']
-      # print(mainPhotos)
-      return returnedPhoto
+      mainPhotos[str(photo['project_id'])] = photo['photo']
 
   for project in projects:
+    index = project['id']
     projectMinObject.append({
       'project_name': project['name'],
       'project_text': project['Description'],
-      'project_image': check_if_photo_in_project(project['id'])
+      'project_image':   mainPhotos[str(index)]  if str(index) in mainPhotos else ''
     })
-    # print(projects.filter(id = project['project_id']).values()[0]['id'])
-    # print(projectMinObject)
-  
     
   template = loader.get_template('index.html')
   context = {
     'slider':slider,
-    'projects': projectMinObject
+    'projects': projectMinObject,
+    'contacts':contacts
   }
-  print(mainPhotos)
+
+  print(contacts[0])
   
   return HttpResponse(template.render(context,request))
 

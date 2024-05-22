@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Image,Celebrity,Photos,Project,Slider
+from .models import Image,Celebrity,Photos,Project,Slider,Logo,Contact
 # from .forms import LogoForm
 from django import forms
 from django.conf import settings
@@ -126,4 +126,46 @@ class SliderAdmin(admin.ModelAdmin):
 
 admin.site.register(Slider,SliderAdmin)
 
-  
+
+class LogoAdmin(admin.ModelAdmin):
+    model  = Logo
+
+    def delete_queryset(self, request, queryset):
+        paths =[]
+        for value in queryset.values_list('logo'):
+            paths.append(value[0])
+            print(paths)
+        queryset.delete()
+
+        for image in paths:
+            imagePath = settings.MEDIA_ROOT + image
+            if os.path.exists(imagePath):
+                os.remove(imagePath)
+
+    def imageField(self, obj):
+        return  format_html('<img src="{}" style="border-radius:50%"   height="50" width="50"  alt="">'.format(settings.MEDIA_URL + str(obj.logo)))
+    list_display = ['imageField']
+
+admin.site.register(Logo,LogoAdmin)
+
+
+class ContactAdmin(admin.ModelAdmin):
+    model  = Contact
+
+    def delete_queryset(self, request, queryset):
+        paths =[]
+        for value in queryset.values_list('contact_logo'):
+            paths.append(value[0])
+            print(paths)
+        queryset.delete()
+
+        for image in paths:
+            imagePath = settings.MEDIA_ROOT + image
+            if os.path.exists(imagePath):
+                os.remove(imagePath)
+
+    def imageField(self, obj):
+        return  format_html('<img src="{}" style="border-radius:50%"   height="50" width="50"  alt="">'.format(settings.MEDIA_URL + str(obj.contact_logo)))
+    list_display = ['imageField']
+
+admin.site.register(Contact,ContactAdmin)

@@ -46,12 +46,21 @@
 
     {% endblock%}
 
+ {% block contacts%}
  
-
-    <div id="contacts" class="contacts-hide">
-
-
+<div id="contacts" class="contacts-hide">
+    {% for i in contacts %}
+    <div class="">
+      <div class="">
+        <img src="/media/{{ i.contact_image}}"   alt="">
+      </div>
     </div>
+    {% endfor %}
+
+</div>
+ {% endblock%}
+
+   
 
     {% block main %}
     {% endblock %}
