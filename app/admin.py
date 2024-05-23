@@ -64,7 +64,7 @@ class PhotoAdmin(admin.ModelAdmin):
 
   
     def imageField(self, obj):
-        return  format_html('<img src="{}"    height="200" width = "200" alt="">'.format(obj.photo))
+        return  format_html('<img src="{}"    height="200" width = "200" alt="">'.format(settings.MEDIA_URL + str(obj.photo)))
     list_display = ['photo_name','imageField']
 
 admin.site.register(Photos,PhotoAdmin)
@@ -72,7 +72,7 @@ admin.site.register(Photos,PhotoAdmin)
 class InlinePhoto(admin.TabularInline):
     model = Photos
     def imageField(self, obj):
-        return  format_html('<img src="./media/{}"    height="200" alt="">'.format(obj.photo))
+        return  format_html('<img src="./media/{}"    height="200" alt="">'.format(settings.MEDIA_URL + str(obj.photo)))
     list_display = ['imageField']
     extra = 0
     classes =('collapse',)

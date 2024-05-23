@@ -1,23 +1,10 @@
 {% extends 'master.html' %}
 
 {% block title %}
-My First Site
+Design
  {% endblock %}
 
-
- <!-- {% block contacts%}
  
-<div id="contacts" class="contacts-hide">
-    {% for i in contacts %}
-    <div class="">
-      <div class="">
-        <img src="/media/{{ i.contact_logo}}"  alt="">
-      </div>
-    </div>
-    {% endfor %}
-
-</div>
- {% endblock%} -->
 
 
  {% block main %}
@@ -49,6 +36,8 @@ My First Site
            <li class="project">
             <p> {{ x.project_name }} {{ x.project_text }}</p>
             <img src="media/{{x.project_image }}" height="300"  alt="{{x.project.project_name}}">
+
+            <a href="project/{{ x.id }}">Details</a>
            
             
           </li>

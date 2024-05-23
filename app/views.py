@@ -4,19 +4,10 @@ from django.template import loader
 from .models import Slider, Project, Photos,Contact,Logo
 
 # Create your views here.
+def custom_page_not_found_view(request, exception):
+    if HttpResponse.status_code == 400:
+      return render(request, "404.html", {})
 
-
-# def contacts(request):
-
-#   contacts = Contact.objects.all().values()
-#   template = loader.get_template('*.html')
-#   context = {
-#     'contacts':contacts
-#   }
-#   return HttpResponse(template.render(context,request))
-
-
-# __________________________index page_________________
 
 def main(request):
 
@@ -24,13 +15,13 @@ def main(request):
   projects = Project.objects.all().values()
   projectPhotos = Photos.objects.all().values()
   contacts = Contact.objects.all().values()
+  logo = Logo.objects.all().values()[0]
 
   projectMinObject = []
   
   projecIdSet = set()
   for project in projects:
     projecIdSet.add(project['id'])
-  print(projecIdSet)
   mainPhotos = {}
   for photo in projectPhotos:
     if ('main' in photo['photo_name'] and photo['project_id']  in projecIdSet):
@@ -41,6 +32,7 @@ def main(request):
   for project in projects:
     index = project['id']
     projectMinObject.append({
+      'id': project['id'],
       'project_name': project['name'],
       'project_text': project['Description'],
       'project_image':   mainPhotos[str(index)]  if str(index) in mainPhotos else ''
@@ -50,10 +42,29 @@ def main(request):
   context = {
     'slider':slider,
     'projects': projectMinObject,
-    'contacts':contacts
+    'contact':contacts,
+    'logo': logo
   }
-
-  print(contacts[0])
+  print(logo)
   
   return HttpResponse(template.render(context,request))
+
+
+def project(request, id):
+
+  logo = Logo.objects.all().values()[0]
+  project = Project.objects.get(id=id)
+  contacts = Contact.objects.all().values()
+
+  template = loader.get_template('project.html')
+
+  context = {
+    'logo': logo,
+    'project': project,
+    'contact':contacts,
+  }
+
+  return HttpResponse(template.render(context,request))
+
+
 

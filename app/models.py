@@ -42,7 +42,7 @@ class Project(models.Model):
             if os.path.exists(path):
                 shutil.rmtree(path)
     def clean(self):
-        regex = re.findall("[\,/,!,#,@,$,%,^,&,*,(,),]", self.name)
+        regex = re.findall("[\\,/,!,#,@,$,%,^,&,*,(,),]", self.name)
         if not len(regex) <1:
             raise ValidationError(
                 {'name': "Not !@#$%^&*()"})
