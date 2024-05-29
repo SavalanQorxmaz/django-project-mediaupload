@@ -8,12 +8,10 @@ Design
 
 
  {% block main %}
- <div class ="home">
-  <div class="load-cover">
-   
-  </div>
+ 
 
-
+<div class="home">
+  
 
   <div id="carousel" class="carousel" oncontextmenu="return false">
     <div class="carousel-items">
@@ -28,6 +26,7 @@ Design
     </div>
     <div class="cover"></div>
   </div>
+  
  <section id="projects-section">
   <div class ="container">
     <h1>main content</h1>
@@ -37,17 +36,17 @@ Design
             <p> {{ x.project_name }} {{ x.project_text }}</p>
             <img src="media/{{x.project_image }}" height="300"  alt="{{x.project.project_name}}">
 
-            <a href="project/{{ x.id }}">Details</a>
+            <a href="project/{{ x.id }}">&rarr;</a>
            
             
           </li>
          {% endfor %}
        </ul>
        
-       <button  id ='clickme'>click me</button>
    </div>
  </section>
  </div>
+</div>
 
 
  

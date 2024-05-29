@@ -45,7 +45,7 @@ def main(request):
     'contact':contacts,
     'logo': logo
   }
-  print(logo)
+  # print(logo)
   
   return HttpResponse(template.render(context,request))
 
@@ -55,6 +55,7 @@ def project(request, id):
   logo = Logo.objects.all().values()[0]
   project = Project.objects.get(id=id)
   contacts = Contact.objects.all().values()
+  photoList = Photos.objects.all().values().filter(project_id =id)
 
   template = loader.get_template('project.html')
 
@@ -62,7 +63,10 @@ def project(request, id):
     'logo': logo,
     'project': project,
     'contact':contacts,
+    'photos':photoList
   }
+
+  print(photoList)
 
   return HttpResponse(template.render(context,request))
 

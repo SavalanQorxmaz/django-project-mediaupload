@@ -2,7 +2,11 @@
 
 const carousel = document.getElementById('carousel')
 
-const carouselItems = Array.from(carousel.children[0].children)
+
+let carouselItems =[]
+if(carousel){
+    carouselItems = Array.from(carousel.children[0].children)
+}
 
 
 carouselItems.forEach(item=>{
@@ -26,6 +30,7 @@ let time  = new Date().getTime()
 let newTime = new Date().getTime()
 const carouselEvent =()=>{
     newTime++
+ if(carousel){
     if(newTime - time >500){
         
         time = newTime
@@ -35,12 +40,13 @@ const carouselEvent =()=>{
         }
         
     }
+ }
     requestAnimationFrame(carouselEvent)
 }
 requestAnimationFrame(carouselEvent)
 
 
-carousel.addEventListener('click', (e)=>{
+carousel?.addEventListener('click', (e)=>{
     e.stopPropagation()
     console.log(e.currentTarget)
     console.log(e.target)

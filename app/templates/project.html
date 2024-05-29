@@ -4,7 +4,27 @@
 project
  {% endblock %}
 
+ {% block main%}
+ <h1><a href="/">  &#x1F844;</a></h1>
 
- {% block main %}
-project
+    <div>
+        {{project.id}}
+        
+    </div>
+    <div>
+        {{project.Description}}
+    </div>
+    <ul class="">
+        {% for x in photos %}
+          <li class="">
+           <p> {{ x.project_name }} {{ x.project_text }}</p>
+           <img src="/media/{{x.photo }}" height="300"  alt="{{x.photo_name}}">
+
+          
+           
+         </li>
+        {% endfor %}
+      </ul>
+
  {% endblock %}
+

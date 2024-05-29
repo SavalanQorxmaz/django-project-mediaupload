@@ -47,8 +47,17 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(to right, rgb(99, 3, 3), rgb(156, 12, 12));
+    background: linear-gradient(to right, rgb(34, 1, 1), rgb(204, 3, 3));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 
+    #load-canvas {
+        // border: 1px solid black;
+        width: 200px;
+        height: 200px;
+    }
 
 }
 

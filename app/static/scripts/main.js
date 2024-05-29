@@ -8,6 +8,7 @@ const hour = document.getElementById("hour");
 const minute = document.getElementById("minute")
 const second = document.getElementById("second")
 
+
 window.addEventListener('resize',()=>{
     window.innerWidth<772?document.body.style.backgroundColor = 'yellow':document.body.style.backgroundColor = 'green'
     
@@ -79,26 +80,100 @@ requestAnimationFrame(analogC)
 requestAnimationFrame(analogC)
 
 
-window.addEventListener("load", (event) => {
-    document.querySelector('.load-cover').classList.add('hidden')
-  });
+const canvas = document.getElementById("load-canvas");
+const ctx = canvas.getContext("2d");
+let raf;
 
-function clickMe(){
-    alert('clicked')
-    console.log('clicked')
+const line = {
+  startX: 100,
+  startY: 100,
+  stopX: 106,
+  stopY: 100,
+  currentX: 100,
+  currentY: 100,
+  direction: 'x',
+  color: "blue",
+  draw() {
+    ctx.moveTo(this.startX, this.startY)
+    ctx.lineTo(this.currentX,this.currentY);
+    ctx.stroke()
+  },
+};
+
+function draw() {
+    
+  raf = window.requestAnimationFrame(draw);
+  line.draw();
+
+
+  switch(line.direction){
+    case 'x':{
+       
+        if(line.currentX!=line.stopX){
+                line.currentX-=Math.abs(line.startX-line.stopX)/(line.startX-line.stopX)*3
+            
+        }
+        else{
+            
+            line.stopY+= line.stopX-line.startX -Math.abs(line.startX-line.stopX)/(line.startX-line.stopX)*6
+            line.startX = line.stopX
+            line.direction ='y'
+        }
+    }
+    break;
+    case 'y':{
+        if(line.currentY!=line.stopY){
+            line.currentY-=Math.abs(line.startY-line.stopY)/(line.startY-line.stopY)*3
+        }
+        else{
+            line.stopX+= line.startY-line.stopY+Math.abs(line.startY-line.stopY)/(line.startY-line.stopY)*6
+            if(line.stopX-line.startX>80){
+                ctx.clearRect(0,0,200,200)
+                
+                ctx.beginPath()
+                line.startX= 100
+                line.startY= 100
+                line.stopX= 103
+                line.stopY= 100
+                line.currentX= 103
+                line.currentY= 103
+                line.direction= 'x'
+              
+            }
+            line.startY = line.stopY
+            line.direction ='x'
+        }
+    }
+    break;
+    
+  }
+
 }
 
+canvas.addEventListener("mouseover", (e) => {
+  raf = window.requestAnimationFrame(draw);
+});
 
-// window.addEventListener('click',(e)=>{
-//     e.preventDefault()
-//     // e.stopPropagation()
-//     if(e.target.tagName== 'A'){
-//         document.documentElement.scrollTop = document.getElementById(`${e.target.href.split('#')[1]}`).offsetTop-80
+// canvas.addEventListener("mouseout", (e) => {
+//   window.cancelAnimationFrame(raf);
+// });
 
-//         console.log(document.getElementById(`${e.target.href.split('#')[1]}`).offsetTop)
-//         // document.documentElement.scrollTop = document.documentElement.scrollTop + 80
-//     }
-//     console.log(e.target.tagName === 'A')
+// line.draw();
+raf = window.requestAnimationFrame(draw);
+
+
+
+
+
+window.addEventListener("load", (event) => {
     
+    setTimeout(()=>{
     
-// })
+        document.getElementById('load-cover').style.display= 'none'
+    window.cancelAnimationFrame(raf);
+    },1000)
+  });
+
+
+
+
