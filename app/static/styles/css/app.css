@@ -42,6 +42,7 @@ header .header #back-to-top {
   border-radius: 50%;
   opacity: 0.7;
   z-index: 90;
+  color: rgb(238, 233, 233);
 }
 header .header .back-to-top-hide {
   bottom: -50px;
@@ -161,6 +162,7 @@ header .header #analog .short-line {
 .home {
   overflow: auto;
   background: linear-gradient(to right, rgb(17, 17, 17), rgb(42, 42, 43));
+  color: white;
 }
 .home .container {
   padding: 0;
@@ -202,7 +204,8 @@ header .header #analog .short-line {
   overflow: hidden;
 }
 .home .carousel .carousel-items .carousel-item .carousel-item-content img {
-  height: 90%;
+  max-height: 90%;
+  max-width: 100%;
 }
 
 #contacts {
@@ -283,7 +286,7 @@ header .header #analog .short-line {
 }
 #contacts .footer div a span {
   padding: 0;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 #contacts .footer div span {
   padding: 0px, 3px;
@@ -295,6 +298,20 @@ header .header #analog .short-line {
 
 .contacts-hide {
   top: 100%;
+}
+
+.project-details {
+  width: 100%;
+}
+.project-details .to-back a {
+  color: black;
+}
+.project-details .project-photos {
+  width: 100%;
+}
+.project-details .project-photos li img {
+  max-width: 100%;
+  object-fit: contain;
 }
 
 @media screen and (min-width: 0px) {

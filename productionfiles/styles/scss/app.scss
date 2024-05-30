@@ -6,6 +6,7 @@
 @import './home.scss';
 @import './carousel.scss';
 @import './contacts.scss';
+@import './projects.scss';
 
 
 @mixin responsive_container($screenwidth, $containerwidth){
@@ -40,7 +41,7 @@
     right: 0;
 
 }
-#load-cover {
+.load-cover {
     position: fixed;
     z-index: 100;
     top: 0;
@@ -54,7 +55,7 @@
     overflow: hidden;
 
     #load-canvas {
-        border: 1px solid black;
+        // border: 1px solid black;
         width: 200px;
         height: 200px;
     }

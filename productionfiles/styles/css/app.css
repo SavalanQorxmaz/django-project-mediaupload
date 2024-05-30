@@ -42,6 +42,7 @@ header .header #back-to-top {
   border-radius: 50%;
   opacity: 0.7;
   z-index: 90;
+  color: black;
 }
 header .header .back-to-top-hide {
   bottom: -50px;
@@ -248,6 +249,46 @@ header .header #analog .short-line {
     gap: 10px;
   }
 }
+#contacts .footer {
+  position: absolute;
+  bottom: 0;
+  color: azure;
+  font-size: 0.8rem;
+  background: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0.13));
+  left: 0;
+  right: 0;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: 0px -1px 10px rgba(255, 255, 255, 0.342);
+}
+#contacts .footer span {
+  padding: 0px 5px;
+}
+#contacts .footer div {
+  display: flex;
+  align-items: center;
+}
+#contacts .footer div a {
+  display: flex;
+  align-items: center;
+  color: rgb(213, 248, 197);
+  margin: 0px 5px;
+}
+#contacts .footer div a:active {
+  color: white;
+}
+#contacts .footer div a svg {
+  margin-right: 3px;
+}
+#contacts .footer div a span {
+  padding: 0;
+  font-size: 0.9rem;
+}
+#contacts .footer div span {
+  padding: 0px, 3px;
+}
 
 .contacts-show {
   top: 0%;
@@ -255,6 +296,13 @@ header .header #analog .short-line {
 
 .contacts-hide {
   top: 100%;
+}
+
+.projects {
+  overflow: hidden;
+}
+.projects .to-back a {
+  color: black;
 }
 
 @media screen and (min-width: 0px) {
@@ -289,7 +337,7 @@ header .header #analog .short-line {
   right: 0;
 }
 
-#load-cover {
+.load-cover {
   position: fixed;
   z-index: 100;
   top: 0;
@@ -302,8 +350,7 @@ header .header #analog .short-line {
   align-items: center;
   overflow: hidden;
 }
-#load-cover #load-canvas {
-  border: 1px solid black;
+.load-cover #load-canvas {
   width: 200px;
   height: 200px;
 }

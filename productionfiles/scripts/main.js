@@ -166,9 +166,10 @@ raf = window.requestAnimationFrame(draw);
 
 
 window.addEventListener("load", (event) => {
-    setTimeout(()=>{
-        document.getElementById('load-cover').classList.add('hidden')
     
+    setTimeout(()=>{
+    
+        document.getElementById('load-cover').style.display= 'none'
     window.cancelAnimationFrame(raf);
     },1000)
   });

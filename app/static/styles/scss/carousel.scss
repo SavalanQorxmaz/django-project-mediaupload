@@ -28,7 +28,8 @@
                     align-items: center;
                     overflow: hidden;
                     img {
-                        height: 90%;
+                        max-height: 90%;
+                        max-width: 100%;
                     }
                 }
             }
